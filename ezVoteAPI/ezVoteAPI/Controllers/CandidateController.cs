@@ -1,32 +1,27 @@
-﻿using ezVoteAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using ezVoteAPI.Services;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace ezVoteAPI.Controllers
 {
-    public class CandidateController : ApiController
+    public class CandidateController : Controller
     {
-        public Candidate[] Get()
+        private CandidateRepository candidateRepo;
+
+        public CandidateController()
         {
-            return new Candidate[]
-            {
-                new Candidate
-                {
-                    Id = 1,
-                    Name = "John Doe",
-                    Bio = "I am running for office"
-                },
-                new Candidate
-                {
-                    Id = 2,
-                    Name = "Joe Schmo",
-                    Bio = "I am also running for office"
-                }
-            };
+            this.candidateRepo = new CandidateRepository();
+        }
+
+        //public Candidate[] Get()
+        //{
+        //    return candidateRepo.GetAllCandidates();
+        //}
+
+        public JsonResult GetCandidates()
+        {
+            var candidates = candidateRepo.GetAllCandidates();
+            return Json(candidates, JsonRequestBehavior.AllowGet);
         }
     }
 }
