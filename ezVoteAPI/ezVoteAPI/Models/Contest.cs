@@ -5,13 +5,11 @@ using System.Web;
 
 namespace ezVoteAPI.Models
 {
-    public class IssueStance
+    public class Contest
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Stance { get; set; }
 
-        public int CandidateId { get; set; }
-        public Candidate Candidate { get; set; }
+        public ICollection<Candidate> Candidates { get; set; }
     }
 }

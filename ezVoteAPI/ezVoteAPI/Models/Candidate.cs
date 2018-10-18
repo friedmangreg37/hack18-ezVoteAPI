@@ -13,8 +13,8 @@ namespace ezVoteAPI.Models
         public string Bio { get; set; }
 
         public int RaceId { get; set; }
-        public ElectionRace Race { get; set; }
+        public Contest Race { get; set; }
 
-        public ICollection<IssueStance> Issues { get; set; }
+        public ICollection<Issue> Issues { get; set; }
     }
 }
