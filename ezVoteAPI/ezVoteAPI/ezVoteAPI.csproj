@@ -188,6 +188,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Candidate.cs" />
+    <Compile Include="Models\ElectionRace.cs" />
+    <Compile Include="Models\IssueStance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CandidateRepository.cs" />
   </ItemGroup>
