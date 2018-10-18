@@ -24,13 +24,13 @@ namespace ezVoteAPI.Services
             return contest;
         }
 
-        public static async Task RunAsync()
-        {
-            client.BaseAddress = new Uri("https://apis.google.com/js/client.js?onload=load");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+        //public static async Task RunAsync()
+        //{
+        //    client.BaseAddress = new Uri("https://apis.google.com/js/client.js?onload=load");
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(
+        //        new MediaTypeWithQualityHeaderValue("application/json"));
 
-        }
+        //}
     }
 }
