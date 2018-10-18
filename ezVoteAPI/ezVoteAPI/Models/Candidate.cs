@@ -16,5 +16,10 @@ namespace ezVoteAPI.Models
         public Contest Race { get; set; }
 
         public ICollection<Issue> Issues { get; set; }
+
+        public Candidate()
+        {
+            Issues = new List<Issue>();
+        }
     }
 }
