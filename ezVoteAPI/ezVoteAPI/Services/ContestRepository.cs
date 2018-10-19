@@ -48,7 +48,7 @@ namespace ezVoteAPI.Services
             IssueKeyWords.Add("Public Safety", "safe");
             IssueKeyWords.Add("Senior Citizens", "seniors");
             IssueKeyWords.Add("Latin America", "latin");
-            IssueKeyWords.Add("Disaster Preparedness", "hurricane");
+            IssueKeyWords.Add("Natural Disaster Preparedness", "hurricane");
             return IssueKeyWords;
         }
 
