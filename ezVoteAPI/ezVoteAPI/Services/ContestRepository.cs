@@ -41,14 +41,14 @@ namespace ezVoteAPI.Services
         {
             var IssueKeyWords = new Dictionary<string, string>();
             IssueKeyWords.Add("Education", "educat");
-            IssueKeyWords.Add("Economy", "job");
+            IssueKeyWords.Add("Economy", "job,econom");
             IssueKeyWords.Add("Environment", "environment");
             IssueKeyWords.Add("Healthcare", "health");
             IssueKeyWords.Add("Immigration", "immigration");
             IssueKeyWords.Add("Public Safety", "safe");
             IssueKeyWords.Add("Senior Citizens", "seniors");
             IssueKeyWords.Add("Latin America", "latin");
-            IssueKeyWords.Add("Disaster Preparedness", "hurricane");
+            IssueKeyWords.Add("Natural Disaster Preparedness", "hurricane");
             return IssueKeyWords;
         }
 
@@ -72,15 +72,18 @@ namespace ezVoteAPI.Services
                     {
                         foreach (var kvp in IssueKeyWords)
                         {
-                            if (line.Contains(kvp.Value))
+                            foreach (var keyword in kvp.Value.Split(','))
                             {
-                                if (!hash.ContainsKey(kvp.Value))
-                                    hash.Add(kvp.Key, line);
-                            }
+                                if (line.Contains(keyword))
+                                {
+                                    if (!hash.ContainsKey(kvp.Key))
+                                        hash.Add(kvp.Key, line);
+                                }
 
-                            if (line.Contains("issue"))
-                            {
-                                issueMainUrl = line;
+                                if (line.Contains("issue"))
+                                {
+                                    issueMainUrl = line;
+                                }
                             }
                         }
                     }
