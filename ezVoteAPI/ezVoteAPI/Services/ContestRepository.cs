@@ -242,8 +242,8 @@ namespace ezVoteAPI.Services
                             bio.Text.Replace("\\", string.Empty);
                            // bio.Name.Replace()
                             bio.Text = HttpUtility.HtmlDecode(bio.Text);
-
                             bio.Text = string.Join(" ", bio.Text.Split().Take(200));
+                            bio.Url = line;
                             issues.Insert(0, bio);
                             return;
                         }
