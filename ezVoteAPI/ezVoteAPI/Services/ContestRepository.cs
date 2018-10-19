@@ -213,6 +213,7 @@ namespace ezVoteAPI.Services
 
                             
                             var bio = new Issue();
+                            bio.Name = "Bio";
                             foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
                             {
                                 int j = 0;
@@ -220,20 +221,20 @@ namespace ezVoteAPI.Services
                                 {
                                     if (lin.InnerText.Length > 40)
                                     {
-                                        bio.Name = bio.Name + lin.InnerText;
+                                        bio.Text = bio.Text + lin.InnerText;
                                     }
                                 }
                             }
 
                             //string inputString = "Räksmörgås";
-                            bio.Name.Replace("\r", string.Empty);
-                            bio.Name.Replace("\t", string.Empty);
+                            bio.Text.Replace("\r", string.Empty);
+                            bio.Text.Replace("\t", string.Empty);
                             //d = lin.InnerText.Replace("\u", string.Empty);
-                            bio.Name.Replace("\n", string.Empty);
-                            bio.Name.Replace("\u0027ve", string.Empty);
-                            bio.Name.Replace("\\", string.Empty);
+                            bio.Text.Replace("\n", string.Empty);
+                            bio.Text.Replace("\u0027ve", string.Empty);
+                            bio.Text.Replace("\\", string.Empty);
                            // bio.Name.Replace()
-                            bio.Name = HttpUtility.HtmlDecode(bio.Name);
+                            bio.Text = HttpUtility.HtmlDecode(bio.Text);
 
 
                             issues.Insert(0, bio);
