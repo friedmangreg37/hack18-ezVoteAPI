@@ -220,14 +220,15 @@ namespace ezVoteAPI.Services
                             bio.Name = "Bio";
                             foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
                             {
-                                int j = 0;
-                                for (int i = 0; i < 3; i++)
-                                {
+                                int j = 1;
+                                if (j == 2)
+                                    break;
                                     if (lin.InnerText.Length > 40)
                                     {
                                         bio.Text = bio.Text + lin.InnerText;
                                     }
-                                }
+                                j++;
+                            
                             }
 
                             //string inputString = "Räksmörgås";
