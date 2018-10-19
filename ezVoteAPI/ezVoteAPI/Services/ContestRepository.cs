@@ -26,7 +26,6 @@ namespace ezVoteAPI.Services
                 Party = "Democratic Party",
                 Issues = LoadCandidateInfo("Bill Nelson", @"https://www.nelsonforsenate.com/")
             };
-            rick.Issues.ElementAt(0).Url = "www.google.com";
             return new Contest[]
             {
                 new Contest
