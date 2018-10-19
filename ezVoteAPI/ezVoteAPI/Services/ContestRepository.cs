@@ -41,13 +41,13 @@ namespace ezVoteAPI.Services
         private static Dictionary<string, string> GetIssuesAndKeywords()
         {
             var IssueKeyWords = new Dictionary<string, string>();
-            IssueKeyWords.Add("Education", "educat");
-            IssueKeyWords.Add("Economy", "job,econom");
-            IssueKeyWords.Add("Environment", "environment");
+            IssueKeyWords.Add("Education", "educat,children");
+            IssueKeyWords.Add("Economy", "job,econom,tax");
+            IssueKeyWords.Add("Environment", "environment,climate,resources,wildlife,pollut,solar,wind");
             IssueKeyWords.Add("Healthcare", "health");
             IssueKeyWords.Add("Immigration", "immigration");
-            IssueKeyWords.Add("Public Safety", "safe");
-            IssueKeyWords.Add("Senior Citizens", "seniors");
+            IssueKeyWords.Add("Public Safety", "safety,gun,law,civil");
+            IssueKeyWords.Add("Senior Citizens", "seniors,medicare,social-security");
             IssueKeyWords.Add("Latin America", "latin");
             IssueKeyWords.Add("Natural Disaster Preparedness", "hurricane");
             return IssueKeyWords;
@@ -173,6 +173,7 @@ namespace ezVoteAPI.Services
                 }
 
             }
+
 
             PrettyFormat(myList);
 
