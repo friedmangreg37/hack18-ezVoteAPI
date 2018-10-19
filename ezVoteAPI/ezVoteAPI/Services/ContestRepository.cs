@@ -37,6 +37,21 @@ namespace ezVoteAPI.Services
             };
         }
 
+        private static Dictionary<string, string> GetIssuesAndKeywords()
+        {
+            var IssueKeyWords = new Dictionary<string, string>();
+            IssueKeyWords.Add("Education", "educat");
+            IssueKeyWords.Add("Economy", "job");
+            IssueKeyWords.Add("Environment", "environment");
+            IssueKeyWords.Add("Healthcare", "health");
+            IssueKeyWords.Add("Immigration", "immigration");
+            IssueKeyWords.Add("Public Safety", "safe");
+            IssueKeyWords.Add("Senior Citizens", "seniors");
+            IssueKeyWords.Add("Latin America", "latin");
+            IssueKeyWords.Add("Disaster Preparedness", "hurricane");
+            return IssueKeyWords;
+        }
+
         public static List<Issue> LoadCandidateInfo(string name, string Url)
         {
             HttpClient http = new HttpClient();
@@ -44,16 +59,7 @@ namespace ezVoteAPI.Services
             Dictionary<string, string> hash = new Dictionary<string, string>();
             var issueMainUrl = "";
 
-            List<string> IssueKeyWords = new List<string>();
-            IssueKeyWords.Add("hurricane");
-            IssueKeyWords.Add("educat");
-            IssueKeyWords.Add("environment");
-            IssueKeyWords.Add("latin");
-            IssueKeyWords.Add("health");
-            IssueKeyWords.Add("immigration");            
-            IssueKeyWords.Add("safe");
-            IssueKeyWords.Add("seniors");
-            IssueKeyWords.Add("job");
+            var IssueKeyWords = GetIssuesAndKeywords();
 
             var mydata = new DataClass();
             
@@ -64,12 +70,12 @@ namespace ezVoteAPI.Services
 
                     foreach (var line in item.Value)
                     {
-                        foreach (var kyword in IssueKeyWords)
+                        foreach (var kvp in IssueKeyWords)
                         {
-                            if (line.Contains(kyword))
+                            if (line.Contains(kvp.Value))
                             {
-                                if (!hash.ContainsKey(kyword))
-                                    hash.Add(kyword, line);
+                                if (!hash.ContainsKey(kvp.Value))
+                                    hash.Add(kvp.Key, line);
                             }
 
                             if (line.Contains("issue"))
@@ -94,10 +100,6 @@ namespace ezVoteAPI.Services
                             if (node != null)
                                 node.Remove();
 
-
-
-
-
                             foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
                             {
                                 int i = 0;
@@ -121,9 +123,6 @@ namespace ezVoteAPI.Services
                                 d = d.Replace("\u0027ve", string.Empty);
                                 d = d.Replace("\\", string.Empty);
                                 d = HttpUtility.HtmlDecode(d);
-
-
-
 
                                 issueSta.Text = issueSta.Text + d;
                                 i++;
@@ -159,7 +158,6 @@ namespace ezVoteAPI.Services
 
                             var issueSta = new Issue();
                             issueSta.Name = lin.PreviousSibling.InnerText.Replace("\r\n\t", string.Empty);
-                            ;
 
                             //// just add the url attribute and pass it up from here
                             Regex.Replace(lin.InnerText, @"\t|\n|\r", "");
@@ -172,7 +170,21 @@ namespace ezVoteAPI.Services
 
             }
 
+            PrettyFormat(myList);
+
             return myList;
+        }
+
+        private static void PrettyFormat(List<Issue> issues)
+        {
+            var allIssues = GetIssuesAndKeywords();
+            foreach (var issue in allIssues.Keys)
+            {
+                if (!issues.Any(i => i.Name == issue))
+                    issues.Add(new Issue {Name = issue, Text = "Our search did not find any results"});
+            }
+
+            issues.Sort((p, q) => p.Name.CompareTo(q.Name));
         }
     }
 }

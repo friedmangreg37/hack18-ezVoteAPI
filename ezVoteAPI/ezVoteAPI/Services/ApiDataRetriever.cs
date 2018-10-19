@@ -13,16 +13,16 @@ namespace ezVoteAPI.Services
     {
         private static HttpClient client = new HttpClient();
 
-        private static async Task<Contest> GetContestsAsync(string path)
-        {
-            Contest contest = null;
-            var response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                contest = await response.Content.ReadAsAsync<Contest>();
-            }
-            return contest;
-        }
+        //private static async Task<Contest> GetContestsAsync(string path)
+        //{
+        //    Contest contest = null;
+        //    var response = await client.GetAsync(path);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        contest = await response.Content.ReadAsAsync<Contest>();
+        //    }
+        //    return contest;
+        //}
 
         //public static async Task RunAsync()
         //{
