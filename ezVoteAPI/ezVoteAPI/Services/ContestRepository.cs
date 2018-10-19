@@ -135,7 +135,7 @@ namespace ezVoteAPI.Services
                                     break;
 
                             }
-
+                            issueSta.Text = string.Join(" ", issueSta.Text.Split().Take(200));
                             myList.Add(issueSta);
                         }
                     }
@@ -168,7 +168,10 @@ namespace ezVoteAPI.Services
                             //// just add the url attribute and pass it up from here
                             Regex.Replace(lin.InnerText, @"\t|\n|\r", "");
                             issueSta.Text = issueSta.Text + lin.InnerText.Replace("\r\n\\t", string.Empty);
-                            ;
+                            
+                            issueSta.Text = string.Join(" ",issueSta.Text.Split().Take(200));
+
+                           
                             myList.Add(issueSta);
                         }
                     }
@@ -237,7 +240,7 @@ namespace ezVoteAPI.Services
                            // bio.Name.Replace()
                             bio.Text = HttpUtility.HtmlDecode(bio.Text);
 
-
+                            bio.Text = string.Join(" ", bio.Text.Split().Take(200));
                             issues.Insert(0, bio);
                             return;
                         }
