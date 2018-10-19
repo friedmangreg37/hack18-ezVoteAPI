@@ -130,6 +130,7 @@ namespace ezVoteAPI.Services
                                 issueSta.Text = issueSta.Text + d;
                                 i++;
                                 issueSta.Name = url.Key;
+                                issueSta.Url = url.Value;
                                 if (i == 2)
                                     break;
 
