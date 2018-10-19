@@ -214,8 +214,10 @@ namespace ezVoteAPI.Services
                             node = response.SelectSingleNode("//div[@class='row alert-bar__row']");
                             if (node != null)
                                 node.Remove();
+                            node = response.SelectSingleNode("//div[@class='vc_row wpb_row section vc_row-fluid']");
+                            if (node != null)
+                                node.Remove();
 
-                            
                             var bio = new Issue();
                             bio.Name = "Bio";
                             foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
