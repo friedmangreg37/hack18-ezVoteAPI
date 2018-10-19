@@ -140,7 +140,9 @@ namespace ezVoteAPI.Services
 
                         Issue issues = new Issue();
                         BrowserSession b = new BrowserSession();
+
                         var response = b.Get(issueMainUrl);
+
                         var node = response.SelectSingleNode("//div[@class='floating-container']");
                         if (node != null)
                             node.Remove();
@@ -148,7 +150,8 @@ namespace ezVoteAPI.Services
                         if (node != null)
                             node.Remove();
 
-                        foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
+
+                        foreach (HtmlAgilityPack.HtmlNode lin in node.SelectNodes("//p"))
                         {
                             var header = string.Empty;
                             if (lin.PreviousSibling == null)
@@ -169,11 +172,77 @@ namespace ezVoteAPI.Services
                 }
 
             }
-
             PrettyFormat(myList);
+            GetBio(myList, mydata.data,Url);
+            
 
             return myList;
         }
+
+
+        public static void  GetBio(List<Issue> issues, Dictionary<string,List<string>> listOfWebandUrl,string Url)
+        {
+            HttpClient http = new HttpClient();
+            int id = 0;
+
+
+            foreach (var urlList in listOfWebandUrl)
+            {
+                if (Url.Contains(urlList.Key))
+                {
+
+                    foreach (var line in urlList.Value)
+                    {
+                        if (line.Contains("about") || line.Contains("about-us") || line.Contains("story") ||
+                            line.Contains("bio") || line.Contains(("meet")))
+                        {
+
+                            
+
+                            BrowserSession b = new BrowserSession();
+                            var response = b.Get(line);
+                            var node = response.SelectSingleNode("//div[@class='floating-container']");
+                            if (node != null)
+                                node.Remove();
+                            node = response.SelectSingleNode("//div[@class='row alert-bar__row']");
+                            if (node != null)
+                                node.Remove();
+
+                            
+                            var bio = new Issue();
+                            foreach (HtmlAgilityPack.HtmlNode lin in response.SelectNodes("//p"))
+                            {
+                                int j = 0;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    if (lin.InnerText.Length > 40)
+                                    {
+                                        bio.Name = bio.Name + lin.InnerText;
+                                    }
+                                }
+                            }
+
+                            //string inputString = "Räksmörgås";
+                            bio.Name.Replace("\r", string.Empty);
+                            bio.Name.Replace("\t", string.Empty);
+                            //d = lin.InnerText.Replace("\u", string.Empty);
+                            bio.Name.Replace("\n", string.Empty);
+                            bio.Name.Replace("\u0027ve", string.Empty);
+                            bio.Name.Replace("\\", string.Empty);
+                           // bio.Name.Replace()
+                            bio.Name = HttpUtility.HtmlDecode(bio.Name);
+
+
+                            issues.Insert(0, bio);
+                            return;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        
 
         private static void PrettyFormat(List<Issue> issues)
         {
